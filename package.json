@@ -1,0 +1,31 @@
+{
+  "name": "template-marketplace-backend",
+  "version": "1.0.0",
+  "description": "Backend for digital template marketplace with M-Pesa integration",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "setup": "mysql -u root -p < database/marketplace.sql"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "mysql2": "^3.6.0",
+    "cors": "^2.8.5",
+    "multer": "^1.4.5-lts.1",
+    "dotenv": "^16.0.3",
+    "bcrypt": "^5.1.0",
+    "jsonwebtoken": "^9.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  },
+  "keywords": [
+    "template-marketplace",
+    "mpesa",
+    "ecommerce",
+    "kenya"
+  ],
+  "author": "Your Name",
+  "license": "MIT"
+}

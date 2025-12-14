@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel | Template Marketplace</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .admin-main {
+            display: none;
+        }
+        
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+    </style>
+</head>
+<body>
+    <!-- Admin Login -->
+    <div class="login-container" id="admin-login-page">
+        <div class="login-box">
+            <div class="login-header">
+                <div class="login-logo">
+                    <i class="fas fa-user-shield fa-3x"></i>
+                </div>
+                <h2>Admin Portal</h2>
+                <p>Restricted Access - Authorized Personnel Only</p>
+            </div>
+            
+            <div class="validation-info">
+                <p><i class="fas fa-exclamation-triangle"></i> All login attempts are monitored and logged</p>
+            </div>
+            
+            <form id="admin-login-form">
+                <div class="form-group">
+                    <label for="admin-username" class="form-label">
+                        <i class="fas fa-user"></i> Username
+                    </label>
+                    <input type="text" id="admin-username" class="form-control" required autocomplete="off">
+                </div>
+                
+                <div class="form-group">
+                    <label for="admin-password" class="form-label">
+                        <i class="fas fa-lock"></i> Password
+                    </label>
+                    <input type="password" id="admin-password" class="form-control" required autocomplete="off">
+                </div>
+                
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary login-btn">
+                        <i class="fas fa-sign-in-alt"></i> Login to Admin Panel
+                    </button>
+                </div>
+            </form>
+            
+            <div class="login-footer">
+                <p class="security-info">
+                    <i class="fas fa-shield-alt"></i> Secure Connection • Activity Logged • 2FA Enabled
+                </p>
+                <p class="forgot-password">
+                    <a href="#" id="forgot-password-link">
+                        <i class="fas fa-key"></i> Forgot Password?
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Main Interface -->
+    <div class="admin-main" id="admin-main">
+        <!-- Admin Header -->
+        <header class="admin-header">
+            <div class="container">
+                <div class="admin-header-content">
+                    <div class="admin-brand">
+                        <i class="fas fa-user-shield admin-icon"></i>
+                        <div>
+                            <h2>Admin Dashboard</h2>
+                            <p id="admin-greeting">Welcome back, Administrator</p>
+                        </div>
+                    </div>
+                    
+                    <div class="admin-actions">
+                        <div class="admin-user">
+                            <span id="admin-username-display">Admin</span>
+                            <div class="user-dropdown">
+                                <button class="user-menu-btn">
+                                    <i class="fas fa-user-circle"></i>
+                                    <i class="fas fa-chevron-down"></i>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a href="#" id="change-password-btn">
+                                        <i class="fas fa-key"></i> Change Password
+                                    </a>
+                                    <a href="#" id="admin-logout-btn">
+                                        <i class="fas fa-sign-out-alt"></i> Logout
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="last-login">
+                            <i class="fas fa-clock"></i>
+                            Last login: <span id="last-login-time">Just now</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Admin Content -->
+        <div class="admin-container">
+            <!-- Admin Sidebar -->
+            <aside class="admin-sidebar">
+                <nav class="admin-nav">
+                    <ul>
+                        <li>
+                            <a href="#" class="admin-nav-link active" data-section="dashboard">
+                                <i class="fas fa-tachometer-alt"></i>
+                                <span>Dashboard</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="admin-nav-link" data-section="templates">
+                                <i class="fas fa-palette"></i>
+                                <span>Manage Templates</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="admin-nav-link" data-section="payments">
+                                <i class="fas fa-credit-card"></i>
+                                <span>Payment History</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="admin-nav-link" data-section="failed-payments">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                <span>Failed Payments</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="admin-nav-link" data-section="platform-settings">
+                                <i class="fas fa-cog"></i>
+                                <span>Platform Settings</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="admin-nav-link" data-section="mpesa-settings">
+                                <i class="fas fa-mobile-alt"></i>
+                                <span>M-Pesa Settings</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="admin-nav-link" data-section="users">
+                                <i class="fas fa-users"></i>
+                                <span>User Management</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                
+                <div class="sidebar-footer">
+                    <div class="system-status">
+                        <h4>System Status</h4>
+                        <div class="status-indicators">
+                            <div class="status-item">
+                                <span class="status-dot active"></span>
+                                <span>API: Online</span>
+                            </div>
+                            <div class="status-item">
+                                <span class="status-dot active"></span>
+                                <span>Database: Online</span>
+                            </div>
+                            <div class="status-item">
+                                <span class="status-dot"></span>
+                                <span>M-Pesa: Connected</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Main Content Area -->
+            <main class="admin-content">
+                <!-- Dashboard Section -->
+                <section id="dashboard" class="admin-section active">
+                    <div class="section-header">
+                        <h3><i class="fas fa-tachometer-alt"></i> Dashboard Overview</h3>
+                        <div class="last-updated">
+                            Last updated: <span id="dashboard-updated">Just now</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Stats Cards -->
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon total-templates">
+                                <i class="fas fa-palette"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h4>Total Templates</h4>
+                                <p class="stat-number" id="total-templates">0</p>
+                            </div>
+                            <div class="stat-trend">
+                                <span class="trend-up">+2 this month</span>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon total-sales">
+                                <i class="fas fa-money-bill-wave"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h4>Total Sales</h4>
+                                <p class="stat-number">KSh <span id="total-sales">0</span></p>
+                            </div>
+                            <div class="stat-trend">
+                                <span class="trend-up">+15% this month</span>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon successful-payments">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h4>Successful Payments</h4>
+                                <p class="stat-number" id="successful-payments">0</p>
+                            </div>
+                            <div class="stat-trend">
+                                <span class="trend-up">+8 today</span>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon failed-payments">
+                                <i class="fas fa-exclamation-circle"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h4>Failed Payments</h4>
+                                <p class="stat-number" id="failed-payments">0</p>
+                            </div>
+                            <div class="stat-trend">
+                                <span class="trend-down">-3 today</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Recent Activity -->
+                    <div class="dashboard-grid">
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <h4><i class="fas fa-history"></i> Recent Transactions</h4>
+                                <a href="#" class="view-all-link" data-section="payments">View All</a>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="activity-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Transaction ID</th>
+                                                <th>Customer</th>
+                                                <th>Amount</th>
+                                                <th>Status</th>
+                                                <th>Time</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="recent-transactions">
+                                            <!-- Transactions loaded here -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <h4><i class="fas fa-chart-line"></i> Sales Overview</h4>
+                                <span>Last 7 days</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-container">
+                                    <canvas id="sales-chart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Quick Actions -->
+                    <div class="quick-actions">
+                        <h4><i class="fas fa-bolt"></i> Quick Actions</h4>
+                        <div class="actions-grid">
+                            <button class="action-btn" id="add-template-quick">
+                                <i class="fas fa-plus-circle"></i>
+                                <span>Add New Template</span>
+                            </button>
+                            <button class="action-btn" id="view-payments-quick">
+                                <i class="fas fa-credit-card"></i>
+                                <span>View Payments</span>
+                            </button>
+                            <button class="action-btn" id="platform-settings-quick">
+                                <i class="fas fa-cog"></i>
+                                <span>Platform Settings</span>
+                            </button>
+                            <button class="action-btn" id="refresh-data-btn">
+                                <i class="fas fa-sync-alt"></i>
+                                <span>Refresh Data</span>
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Manage Templates Section -->
+                <section id="templates" class="admin-section">
+                    <div class="section-header">
+                        <h3><i class="fas fa-palette"></i> Manage Templates</h3>
+                        <button class="btn btn-primary" id="add-template-btn">
+                            <i class="fas fa-plus"></i> Add New Template
+                        </button>
+                    </div>
+                    
+                    <!-- Add Template Form -->
+                    <div class="admin-card template-form-card" id="template-form-card" style="display: none;">
+                        <div class="card-header">
+                            <h4><i class="fas fa-plus-circle"></i> Add New Template</h4>
+                            <button class="btn btn-outline close-form-btn">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <div class="card-body">
+                            <div class="validation-info">
+                                <p><i class="fas fa-info-circle"></i> All fields are required for template submission</p>
+                                <p><i class="fas fa-info-circle"></i> Supported files: ZIP archives containing website files</p>
+                            </div>
+                            
+                            <form id="add-template-form" enctype="multipart/form-data">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="template-name" class="form-label">Template Name *</label>
+                                        <input type="text" id="template-name" class="form-control" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="template-price" class="form-label">Price (KSh) *</label>
+                                        <input type="number" id="template-price" class="form-control" min="0" step="10" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="template-description" class="form-label">Description *</label>
+                                    <textarea id="template-description" class="form-control" rows="3" required></textarea>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="template-background" class="form-label">Background Image</label>
+                                        <div class="file-upload-wrapper">
+                                            <input type="file" id="template-background" class="file-input" accept="image/*">
+                                            <div class="file-upload-area">
+                                                <i class="fas fa-image"></i>
+                                                <p>Click to upload background image</p>
+                                                <span class="file-name" id="background-filename">No file chosen</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="template-files" class="form-label">Template Files (ZIP) *</label>
+                                        <div class="file-upload-wrapper">
+                                            <input type="file" id="template-files" class="file-input" accept=".zip" required>
+                                            <div class="file-upload-area">
+                                                <i class="fas fa-file-archive"></i>
+                                                <p>Click to upload template ZIP file</p>
+                                                <span class="file-name" id="template-filename">No file chosen</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="template-preview" class="form-label">Preview HTML Code</label>
+                                    <textarea id="template-preview" class="form-control" rows="6" placeholder="Enter HTML code for template preview..."></textarea>
+                                    <small class="form-text">This will be shown when users preview the template</small>
+                                </div>
+                                
+                                <div class="form-actions">
+                                    <button type="submit" class="btn btn-success">
+                                        <i class="fas fa-save"></i> Save Template
+                                    </button>
+                                    <button type="button" class="btn btn-outline cancel-template-btn">
+                                        <i class="fas fa-times"></i> Cancel
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <!-- Templates Table -->
+                    <div class="admin-card">
+                        <div class="card-header">
+                            <h4><i class="fas fa-list"></i> All Templates</h4>
+                            <div class="table-actions">
+                                <input type="text" id="template-search" class="search-input" placeholder="Search templates...">
+                                <button class="btn btn-outline export-templates-btn">
+                                    <i class="fas fa-download"></i> Export
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="admin-table" id="templates-table">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Template Name</th>
+                                            <th>Description</th>
+                                            <th>Price</th>
+                                            <th>Downloads</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="templates-table-body">
+                                        <!-- Templates loaded here -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Payment History Section -->
+                <section id="payments" class="admin-section">
+                    <div class="section-header">
+                        <h3><i class="fas fa-credit-card"></i> Payment History</h3>
+                        <div class="date-filter">
+                            <input type="date" id="payment-date-from" class="form-control">
+                            <span>to</span>
+                            <input type="date" id="payment-date-to" class="form-control">
+                            <button class="btn btn-outline" id="filter-payments-btn">
+                                <i class="fas fa-filter"></i> Filter
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="admin-card">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="admin-table" id="payments-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Transaction ID</th>
+                                            <th>Customer</th>
+                                            <th>Phone</th>
+                                            <th>Templates</th>
+                                            <th>Amount</th>
+                                            <th>M-Pesa Receipt</th>
+                                            <th>Date</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="payments-table-body">
+                                        <!-- Payments loaded here -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Failed Payments Section -->
+                <section id="failed-payments" class="admin-section">
+                    <div class="section-header">
+                        <h3><i class="fas fa-exclamation-triangle"></i> Failed Payments</h3>
+                        <button class="btn btn-outline retry-failed-btn">
+                            <i class="fas fa-redo"></i> Retry Selected
+                        </button>
+                    </div>
+                    
+                    <div class="admin-card">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="admin-table" id="failed-payments-table">
+                                    <thead>
+                                        <tr>
+                                            <th><input type="checkbox" id="select-all-failed"></th>
+                                            <th>Transaction ID</th>
+                                            <th>Phone Number</th>
+                                            <th>Amount</th>
+                                            <th>Error Message</th>
+                                            <th>Attempted At</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="failed-payments-table-body">
+                                        <!-- Failed payments loaded here -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Platform Settings Section -->
+                <section id="platform-settings" class="admin-section">
+                    <div class="section-header">
+                        <h3><i class="fas fa-cog"></i> Platform Settings</h3>
+                        <button class="btn btn-primary" id="save-settings-btn">
+                            <i class="fas fa-save"></i> Save All Settings
+                        </button>
+                    </div>
+                    
+                    <!-- General Settings -->
+                    <div class="admin-card">
+                        <div class="card-header">
+                            <h4><i class="fas fa-info-circle"></i> General Information</h4>
+                        </div>
+                        <div class="card-body">
+                            <form id="general-settings-form">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="platform-name" class="form-label">Platform Name *</label>
+                                        <input type="text" id="platform-name" class="form-control" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="platform-logo" class="form-label">Platform Logo</label>
+                                        <div class="file-upload-wrapper">
+                                            <input type="file" id="platform-logo" class="file-input" accept="image/*">
+                                            <div class="file-upload-area">
+                                                <i class="fas fa-upload"></i>
+                                                <p>Click to upload logo</p>
+                                                <span class="file-name" id="logo-filename">Current logo</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="admin-email" class="form-label">Admin Email *</label>
+                                        <input type="email" id="admin-email" class="form-control" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="admin-phone" class="form-label">Admin Phone *</label>
+                                        <input type="tel" id="admin-phone" class="form-control" required>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <!-- Contact & Social Media -->
+                    <div class="admin-card">
+                        <div class="card-header">
+                            <h4><i class="fas fa-share-alt"></i> Contact & Social Media</h4>
+                        </div>
+                        <div class="card-body">
+                            <form id="contact-settings-form">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="contact-phone" class="form-label">Contact Phone *</label>
+                                        <input type="tel" id="contact-phone" class="form-control" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="contact-email" class="form-label">Contact Email *</label>
+                                        <input type="email" id="contact-email" class="form-control" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="tiktok-url" class="form-label">TikTok URL</label>
+                                        <input type="url" id="tiktok-url" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="facebook-url" class="form-label">Facebook URL</label>
+                                        <input type="url" id="facebook-url" class="form-control">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="whatsapp-number" class="form-label">WhatsApp Number</label>
+                                        <input type="tel" id="whatsapp-number" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="instagram-url" class="form-label">Instagram URL</label>
+                                        <input type="url" id="instagram-url" class="form-control">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <!-- Admin Credentials -->
+                    <div class="admin-card">
+                        <div class="card-header">
+                            <h4><i class="fas fa-user-shield"></i> Admin Credentials</h4>
+                            <button type="button" class="btn btn-outline" id="change-admin-password-btn">
+                                <i class="fas fa-key"></i> Change Password
+                            </button>
+                        </div>
+                        <div class="card-body">
+                            <form id="admin-credentials-form">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="current-password" class="form-label">Current Password *</label>
+                                        <input type="password" id="current-password" class="form-control" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="new-password" class="form-label">New Password *</label>
+                                        <input type="password" id="new-password" class="form-control" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="confirm-password" class="form-label">Confirm Password *</label>
+                                        <input type="password" id="confirm-password" class="form-control" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="password-requirements">
+                                    <p><i class="fas fa-info-circle"></i> Password must contain:</p>
+                                    <ul>
+                                        <li>At least 8 characters</li>
+                                        <li>One uppercase letter</li>
+                                        <li>One lowercase letter</li>
+                                        <li>One number</li>
+                                        <li>One special character</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="form-actions">
+                                    <button type="submit" class="btn btn-success">
+                                        <i class="fas fa-save"></i> Update Password
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- M-Pesa Settings Section -->
+                <section id="mpesa-settings" class="admin-section">
+                    <div class="section-header">
+                        <h3><i class="fas fa-mobile-alt"></i> M-Pesa Integration Settings</h3>
+                        <button class="btn btn-primary" id="test-mpesa-btn">
+                            <i class="fas fa-test"></i> Test Connection
+                        </button>
+                    </div>
+                    
+                    <div class="validation-info">
+                        <p><i class="fas fa-exclamation-triangle"></i> Keep these credentials secure. Do not share with unauthorized personnel.</p>
+                        <p><i class="fas fa-info-circle"></i> Contact Safaricom for API credentials if you don't have them.</p>
+                    </div>
+                    
+                    <div class="admin-card">
+                        <div class="card-header">
+                            <h4><i class="fas fa-key"></i> API Credentials</h4>
+                        </div>
+                        <div class="card-body">
+                            <form id="mpesa-settings-form">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="mpesa-business-number" class="form-label">Business Short Code *</label>
+                                        <input type="text" id="mpesa-business-number" class="form-control" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="mpesa-passkey" class="form-label">Passkey *</label>
+                                        <input type="password" id="mpesa-passkey" class="form-control" required>
+                                        <button type="button" class="toggle-password" data-target="mpesa-passkey">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="mpesa-consumer-key" class="form-label">Consumer Key *</label>
+                                        <input type="text" id="mpesa-consumer-key" class="form-control" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="mpesa-consumer-secret" class="form-label">Consumer Secret *</label>
+                                        <input type="password" id="mpesa-consumer-secret" class="form-control" required>
+                                        <button type="button" class="toggle-password" data-target="mpesa-consumer-secret">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="mpesa-callback-url" class="form-label">Callback URL</label>
+                                    <input type="url" id="mpesa-callback-url" class="form-control">
+                                    <small class="form-text">Leave empty for default callback URL</small>
+                                </div>
+                                
+                                <div class="form-actions">
+                                    <button type="submit" class="btn btn-success">
+                                        <i class="fas fa-save"></i> Save M-Pesa Settings
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <div class="admin-card">
+                        <div class="card-header">
+                            <h4><i class="fas fa-history"></i> Transaction Settings</h4>
+                        </div>
+                        <div class="card-body">
+                            <form id="transaction-settings-form">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="transaction-timeout" class="form-label">Payment Timeout (seconds)</label>
+                                        <input type="number" id="transaction-timeout" class="form-control" min="30" max="300" value="60">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="max-retry-attempts" class="form-label">Max Retry Attempts</label>
+                                        <input type="number" id="max-retry-attempts" class="form-control" min="1" max="5" value="3">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="default-amount-limit" class="form-label">Default Amount Limit (KSh)</label>
+                                    <input type="number" id="default-amount-limit" class="form-control" min="10" max="150000" value="70000">
+                                    <small class="form-text">Maximum amount per transaction</small>
+                                </div>
+                                
+                                <div class="form-actions">
+                                    <button type="submit" class="btn btn-success">
+                                        <i class="fas fa-save"></i> Save Transaction Settings
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- User Management Section -->
+                <section id="users" class="admin-section">
+                    <div class="section-header">
+                        <h3><i class="fas fa-users"></i> User Management</h3>
+                        <button class="btn btn-outline export-users-btn">
+                            <i class="fas fa-download"></i> Export Users
+                        </button>
+                    </div>
+                    
+                    <div class="admin-card">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="admin-table" id="users-table">
+                                    <thead>
+                                        <tr>
+                                            <th>User ID</th>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Phone</th>
+                                            <th>Total Purchases</th>
+                                            <th>Total Spent</th>
+                                            <th>Joined Date</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="users-table-body">
+                                        <!-- Users loaded here -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmation-modal" class="modal">
+        <div class="modal-content confirmation-modal">
+            <div class="modal-header">
+                <h3><i class="fas fa-exclamation-circle"></i> Confirm Action</h3>
+            </div>
+            <div class="modal-body">
+                <div class="confirmation-icon">
+                    <i class="fas fa-question-circle"></i>
+                </div>
+                <h4 id="confirmation-title">Are you sure you want to proceed?</h4>
+                <p id="confirmation-message">This action cannot be undone. Please confirm your decision.</p>
+                
+                <div class="confirmation-actions">
+                    <button class="btn btn-outline cancel-action-btn">
+                        <i class="fas fa-times"></i> Cancel
+                    </button>
+                    <button class="btn btn-danger confirm-action-btn">
+                        <i class="fas fa-check"></i> Confirm
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notifications Container -->
+    <div id="notifications-container"></div>
+
+    <!-- JavaScript Files -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>
